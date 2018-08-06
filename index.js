@@ -1,29 +1,43 @@
-const {app, Tray: Index, Menu, BrowserWindow, globalShortcut} = require('electron');
-const makeScreenshot = require('./shot');
+const { app, Tray: Index, Menu, BrowserWindow, globalShortcut, shell } = require('electron');
+const makeScreenshot = require('./src/shot');
+const shortcut = require('./src/shortcut');
 const path = require('path');
+const fs = require('fs');
 
-const iconPath = path.join(__dirname, 'assets', 'icon.png');
-let appIcon = null;
-let window = null;
+app.on('ready', () => {
+  try {
+    /**
+     * Do not show app in Dock
+     */
+    app.dock.hide();
 
-app.on('ready', function(){
-  app.dock.hide();
+    /**
+     * Create hidden app window
+     */
+    let window = new BrowserWindow({show: false});
 
-  window = new BrowserWindow({show: false});
-  appIcon = new Index(iconPath);
+    /**
+     * Set up icon
+     */
+    const iconPath = path.join(__dirname, 'assets', 'tray-icon-Template.png'),
+      appIcon = new Index(iconPath);
 
-  const contextMenu = Menu.buildFromTemplate([
-    {
-      label: 'Quit',
-      accelerator: 'Command+Q',
-      selector: 'terminate:',
-    }
-  ]);
-  appIcon.setContextMenu(contextMenu);
+    /**
+     * Prepare context menu
+     */
+    const menuItems = require('./src/menu'),
+      contextMenu = Menu.buildFromTemplate(menuItems);
 
-  appIcon.setToolTip('Upload a shot to capella.pics: CMD+SHIFT+CTRL+5');
+    appIcon.setContextMenu(contextMenu);
 
-  globalShortcut.register('Command+Shift+Control+5', () => {
-    makeScreenshot();
-  })
+    /**
+     * Define global shortcut
+     */
+    globalShortcut.register(shortcut, () => {
+      makeScreenshot();
+    });
+  } catch (e) {
+    console.log('e', e);
+    app.quit();
+  }
 });

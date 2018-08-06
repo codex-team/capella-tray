@@ -1,17 +1,27 @@
 {
   "name": "shotcapella",
   "version": "1.0.0",
-  "description": "",
+  "description": "Upload screenshot to Capella and get a link to uploaded image into your clipboard",
   "main": "index.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder"
+    "build": "electron-builder",
+    "ship": "electron-builder -m -p always"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Taly Guryn",
+    "url": "https://github.com/talyguryn"
+  },
+  "repository": {
+    "url": "https://github.com/codex-team/shotcapella"
+  },
+  "bugs": "https://github.com/codex-team/shotcapella/issues/new",
+  "license": "MIT",
   "dependencies": {
     "@codexteam/capella-pics": "^1.0.1",
+    "about-window": "^1.12.1",
+    "auto-launch": "^5.0.5",
     "copy-paste": "^1.3.0",
     "shelljs": "^0.8.2"
   },
@@ -19,7 +29,17 @@
     "electron": "^2.0.6",
     "electron-builder": "^20.26.1"
   },
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "codex-team",
+      "repo": "shotcapella"
+    }
+  ],
   "build": {
-    "appId": "pics.capella.mac-app"
+    "appId": "pics.capella.mac-app",
+    "dmg": {
+      "title": "shotcapella"
+    }
   }
 }
