@@ -1,22 +1,17 @@
 const path = require('path');
-const { app } = require('electron');
-const openAboutWindow = require('./about-window');
-const makeScreenshot = require('./shot');
+const { app, shell } = require('electron');
 const shortcut = require('./shortcut');
+const makeScreenshot = require('./commands/shot');
 const launchToggle = require('./auto-launch');
 
-let launch;
-
 module.exports = [
-  // {
-  //   label: 'About',
-  //   click() {
-  //     shell.openExternal(process.env.npm_package_repository_url);
-  //   }
-  // },
-  // {
-  //   type: 'separator'
-  // },
+  {
+    label: 'Capella',
+    click() {
+      shell.openExternal('https://capella.pics/');
+    }
+  },
+  { type: 'separator' },
   {
     label: 'Make a shot',
     accelerator: shortcut,
@@ -24,21 +19,16 @@ module.exports = [
       makeScreenshot();
     }
   },
-  {
-    type: 'separator'
-  },
+  { type: 'separator' },
   {
     label: 'Open at Login',
     type: 'checkbox',
     checked: app.getLoginItemSettings().openAtLogin,
     click: launchToggle,
   },
-  {
-    type: 'separator'
-  },
+  { type: 'separator' },
   {
     label: 'Quit',
-    accelerator: 'Command+Q',
-    selector: 'terminate:',
+    role: 'quit'
   }
 ];

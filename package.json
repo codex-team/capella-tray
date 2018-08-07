@@ -1,11 +1,11 @@
 {
-  "name": "shotcapella",
+  "name": "Capella",
   "version": "1.0.0",
-  "description": "Upload screenshot to Capella and get a link to uploaded image into your clipboard",
+  "description": "Upload screenshots instantly to Capella and get link directly to clipboard",
   "main": "index.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder",
+    "build": "electron-builder -m",
     "ship": "electron-builder -m -p always"
   },
   "keywords": [],
@@ -14,13 +14,13 @@
     "url": "https://github.com/talyguryn"
   },
   "repository": {
-    "url": "https://github.com/codex-team/shotcapella"
+    "url": "https://github.com/codex-team/capella-tray"
   },
-  "bugs": "https://github.com/codex-team/shotcapella/issues/new",
+  "bugs": "https://github.com/codex-team/capella-tray/issues/new",
   "license": "MIT",
   "dependencies": {
     "@codexteam/capella-pics": "^1.0.1",
-    "about-window": "^1.12.1",
+    "@codexteam/hawk.nodejs": "^1.2.1",
     "auto-launch": "^5.0.5",
     "copy-paste": "^1.3.0",
     "shelljs": "^0.8.2"
@@ -33,13 +33,21 @@
     {
       "provider": "github",
       "owner": "codex-team",
-      "repo": "shotcapella"
+      "repo": "capella-tray"
     }
   ],
   "build": {
-    "appId": "pics.capella.mac-app",
+    "appId": "pics.capella.tray",
+    "artifactName": "Capella-${version}.${ext}",
+    "mac": {
+      "category": "public.app-category.reference"
+    },
     "dmg": {
-      "title": "shotcapella"
-    }
+      "title": "Capella"
+    },
+    "files": [
+      "**/*",
+      "!demo.gif"
+    ]
   }
 }

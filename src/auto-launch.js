@@ -9,7 +9,7 @@ const appPath = app.getPath('exe').replace(/\.app\/Content.*/, '.app');
 /**
  * Get launch instance
  */
-let launch = new AutoLaunch({ name: 'shotcapella', path: appPath, isHidden: false });
+let launch = new AutoLaunch({ name: 'Capella', path: appPath, isHidden: false });
 
 /**
  * State toggler

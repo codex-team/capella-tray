@@ -1,8 +1,11 @@
-const { app, Tray: Index, Menu, BrowserWindow, globalShortcut, shell } = require('electron');
-const makeScreenshot = require('./src/shot');
+const { app, Tray, Menu, globalShortcut } = require('electron');
 const shortcut = require('./src/shortcut');
 const path = require('path');
 const fs = require('fs');
+
+
+const makeScreenshot = require('./src/commands/shot');
+const uploadDropped = require('./src/commands/drop');
 
 app.on('ready', () => {
   try {
@@ -12,32 +15,31 @@ app.on('ready', () => {
     app.dock.hide();
 
     /**
-     * Create hidden app window
-     */
-    let window = new BrowserWindow({show: false});
-
-    /**
      * Set up icon
      */
     const iconPath = path.join(__dirname, 'assets', 'tray-icon-Template.png'),
-      appIcon = new Index(iconPath);
+          appIcon = new Tray(iconPath);
 
     /**
      * Prepare context menu
      */
     const menuItems = require('./src/menu'),
-      contextMenu = Menu.buildFromTemplate(menuItems);
+          contextMenu = Menu.buildFromTemplate(menuItems);
 
     appIcon.setContextMenu(contextMenu);
 
     /**
      * Define global shortcut
      */
-    globalShortcut.register(shortcut, () => {
-      makeScreenshot();
-    });
-  } catch (e) {
-    console.log('e', e);
+    globalShortcut.register(shortcut, makeScreenshot);
+
+    /**
+     * Process files dran-n-dropping on the icon
+     */
+    appIcon.on('drop-files', uploadDropped);
+
+  } catch (error) {
+    console.log(error);
     app.quit();
   }
 });
