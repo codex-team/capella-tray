@@ -1,17 +1,27 @@
 {
-  "name": "shotcapella",
+  "name": "capella-tray",
   "version": "1.0.0",
-  "description": "",
+  "description": "Upload screenshots instantly to Capella and get link directly to clipboard",
   "main": "index.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder"
+    "build": "electron-builder -m",
+    "ship": "electron-builder -m -p always"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Taly Guryn",
+    "url": "https://github.com/talyguryn"
+  },
+  "repository": {
+    "url": "https://github.com/codex-team/capella-tray"
+  },
+  "bugs": "https://github.com/codex-team/capella-tray/issues/new",
+  "license": "MIT",
   "dependencies": {
     "@codexteam/capella-pics": "^1.0.1",
+    "@codexteam/hawk.nodejs": "^1.2.1",
+    "auto-launch": "^5.0.5",
     "copy-paste": "^1.3.0",
     "shelljs": "^0.8.2"
   },
@@ -20,6 +30,26 @@
     "electron-builder": "^20.26.1"
   },
   "build": {
-    "appId": "pics.capella.mac-app"
+    "appId": "pics.capella.tray",
+    "productName": "Capella",
+    "artifactName": "Capella-${version}.${ext}",
+    "copyright": "Copyright © 2018 CodeX",
+    "mac": {
+      "category": "public.app-category.reference"
+    },
+    "dmg": {
+      "title": "Capella"
+    },
+    "files": [
+      "**/*",
+      "!demo.gif"
+    ],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "codex-team",
+        "repo": "capella-tray"
+      }
+    ]
   }
 }
