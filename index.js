@@ -3,7 +3,6 @@ const shortcut = require('./src/shortcut');
 const path = require('path');
 const fs = require('fs');
 
-
 const makeScreenshot = require('./src/commands/shot');
 const uploadDropped = require('./src/commands/drop');
 
