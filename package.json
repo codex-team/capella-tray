@@ -1,5 +1,5 @@
 {
-  "name": "Capella",
+  "name": "capella-tray",
   "version": "1.0.0",
   "description": "Upload screenshots instantly to Capella and get link directly to clipboard",
   "main": "index.js",
@@ -29,16 +29,11 @@
     "electron": "^2.0.6",
     "electron-builder": "^20.26.1"
   },
-  "publish": [
-    {
-      "provider": "github",
-      "owner": "codex-team",
-      "repo": "capella-tray"
-    }
-  ],
   "build": {
     "appId": "pics.capella.tray",
+    "productName": "Capella",
     "artifactName": "Capella-${version}.${ext}",
+    "copyright": "Copyright © 2018 CodeX",
     "mac": {
       "category": "public.app-category.reference"
     },
@@ -48,6 +43,13 @@
     "files": [
       "**/*",
       "!demo.gif"
-    ]
+    ],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "codex-team",
+        "repo": "capella-tray"
+      }
+    ],
   }
 }
